@@ -1,0 +1,52 @@
+<ion-content [fullscreen]="true">
+  <div class="pantalla">
+
+    <div class="fila-busqueda">
+      <ion-searchbar placeholder="Buscar" showClearButton="never"></ion-searchbar>
+      <button class="boton-campana">
+        <ion-icon name="notificationsOutline"></ion-icon>
+      </button>
+    </div>
+
+    <div class="categorias">
+      @for (c of categorias; track c.id) {
+        <button
+          class="categoria"
+          [class.activa]="categoriaActivaId === c.id"
+          (click)="elegirCategoria(c)">
+          <ion-icon [name]="c.icono ?? 'appsOutline'"></ion-icon>
+          <span>{{ c.nombre }}</span>
+        </button>
+      }
+    </div>
+
+    <div class="encabezado-seccion">
+      <h2>Recetas populares</h2>
+      <a>Ver todas</a>
+    </div>
+
+    @if (!cargando && recetas.length === 0) {
+      <p class="sin-resultados">No hay recetas en esta categoría todavía.</p>
+    }
+
+    <div class="lista-recetas">
+      @for (r of recetas; track r.id) {
+        <div class="tarjeta-receta">
+          <div class="imagen-receta">
+            <!-- Placeholder: aquí irá la foto real de la receta -->
+            <ion-icon name="starOutline" class="favorito"></ion-icon>
+          </div>
+          <div class="cuerpo-receta">
+            <h3>{{ r.nombre }}</h3>
+            <p class="tiempo"><ion-icon name="timeOutline"></ion-icon> {{ r.tiempo_min }} min</p>
+            <div class="pie-receta">
+              <span class="dificultad">{{ r.dificultad }}</span>
+              <span class="kcal">{{ r.kcal }} kcal</span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+  </div>
+</ion-content>

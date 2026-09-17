@@ -1,0 +1,57 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="clear">
+        <ion-icon slot="icon-only" name="calendarOutline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Dashboard</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear">
+        <ion-icon slot="icon-only" name="notificationsOutline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="pantalla">
+
+    <div class="gauge-wrap">
+      <div class="anillo" [style.background]="'conic-gradient(var(--color-acento) ' + porcentaje + '%, #ece7e1 0)'">
+        <div class="anillo-interior">
+          <span class="fecha">{{ fecha }}</span>
+          <span class="kcal">{{ consumidoKcal }} kcal</span>
+          <span class="meta">Meta {{ metaKcal }} kcal</span>
+        </div>
+      </div>
+    </div>
+
+    <button class="boton-agregar">
+      <ion-icon name="addOutline"></ion-icon>
+    </button>
+
+    <div class="lista-comidas">
+      @for (c of comidas; track c.nombre + c.hora) {
+        <div class="tarjeta-comida">
+          <div class="avatar"></div>
+          <div class="info">
+            <h3>{{ c.nombre }}</h3>
+            <p class="hora">{{ c.hora }}</p>
+            <div class="macros">
+              <span>Proteína <b>{{ c.proteina }}g</b></span>
+              <span>Carbs <b>{{ c.carbohidratos }}g</b></span>
+              <span>Grasa <b>{{ c.grasa }}g</b></span>
+            </div>
+          </div>
+          <div class="derecha">
+            <span class="kcal-comida">{{ c.kcal }} kcal</span>
+            <span class="porcentaje">{{ c.porcentajeMeta }}% de la meta</span>
+            <ion-icon name="createOutline"></ion-icon>
+          </div>
+        </div>
+      }
+    </div>
+
+  </div>
+</ion-content>

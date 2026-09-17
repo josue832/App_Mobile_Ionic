@@ -1,0 +1,163 @@
+:host {
+  --background: #faf5f0;
+}
+
+.pantalla {
+  padding: 1rem 1.25rem 2rem;
+  font-family: 'Roboto', sans-serif;
+  color: #2b2b2b;
+}
+
+.fila-busqueda {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+
+  ion-searchbar {
+    flex: 1;
+    padding: 0;
+    --background: #fff;
+    --border-radius: 12px;
+    --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  .boton-campana {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: none;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2b2b2b;
+    flex-shrink: 0;
+  }
+}
+
+.categorias {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+
+  .categoria {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    background: #fff;
+    border: none;
+    border-radius: 14px;
+    padding: 0.75rem 1rem;
+    font-size: 0.75rem;
+    color: #9a9a9a;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+
+    ion-icon {
+      font-size: 1.2rem;
+    }
+
+    &.activa {
+      background: #f4845f;
+      color: #fff;
+    }
+  }
+}
+
+.encabezado-seccion {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  h2 {
+    font-size: 1.1rem;
+    margin: 0;
+  }
+
+  a {
+    font-size: 0.8rem;
+    color: #f4845f;
+    font-weight: 600;
+  }
+}
+
+.sin-resultados {
+  text-align: center;
+  color: #9a9a9a;
+  font-size: 0.9rem;
+  padding: 2rem 0;
+}
+
+.lista-recetas {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.tarjeta-receta {
+  background: #fff;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.imagen-receta {
+  position: relative;
+  height: 160px;
+  // Placeholder de imagen — reemplaza este gradiente con la foto real de la receta
+  background: linear-gradient(135deg, #7fae4a, #d9c14f, #c65b3f);
+
+  .favorito {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    background: #fff;
+    border-radius: 50%;
+    padding: 0.4rem;
+    font-size: 1rem;
+  }
+}
+
+.cuerpo-receta {
+  padding: 0.9rem 1rem 1.1rem;
+
+  h3 {
+    margin: 0 0 0.35rem;
+    font-size: 1rem;
+  }
+
+  .tiempo {
+    margin: 0 0 0.6rem;
+    font-size: 0.8rem;
+    color: #9a9a9a;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .pie-receta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .dificultad {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #f4845f;
+      background: #fdece4;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+    }
+
+    .kcal {
+      font-weight: 700;
+    }
+  }
+}

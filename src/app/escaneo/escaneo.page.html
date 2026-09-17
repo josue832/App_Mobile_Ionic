@@ -1,0 +1,30 @@
+<ion-content [fullscreen]="true" [scrollY]="false">
+  <div class="pantalla">
+
+    <div class="foto-zona">
+      <!-- Placeholder: aquí irá la foto real del platillo / cámara -->
+      @for (g of globos; track g.kcal) {
+        <div class="globo" [style.top]="g.top" [style.left]="g.left">
+          {{ g.kcal }} kcal
+        </div>
+      }
+    </div>
+
+    <div class="panel-texto">
+      <h1>Tu comida,<br>decodificada por IA</h1>
+      <p>Desde escanear hasta llevar el registro — todo pasa automáticamente.</p>
+
+      <div class="puntos">
+        <span class="punto activo"></span>
+        <span class="punto"></span>
+        <span class="punto"></span>
+      </div>
+
+      <button class="boton-escanear">
+        <ion-icon name="cameraOutline"></ion-icon>
+        Escanear alimento
+      </button>
+    </div>
+
+  </div>
+</ion-content>

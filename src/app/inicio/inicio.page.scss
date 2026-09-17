@@ -1,0 +1,144 @@
+:host {
+  --background: #faf5f0;
+  --color-acento: #f4845f;
+}
+
+.pantalla {
+  padding: 1rem 1.25rem 2rem;
+  font-family: 'Roboto', sans-serif;
+  color: #2b2b2b;
+}
+
+.gauge-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0 1.5rem;
+}
+
+.anillo {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.4s ease;
+}
+
+.anillo-interior {
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .fecha {
+    font-size: 0.8rem;
+    color: #9a9a9a;
+  }
+
+  .kcal {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin: 0.15rem 0;
+  }
+
+  .meta {
+    font-size: 0.8rem;
+    color: var(--color-acento);
+    font-weight: 600;
+  }
+}
+
+.boton-agregar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  font-size: 1.4rem;
+  color: var(--color-acento);
+  cursor: pointer;
+}
+
+.lista-comidas {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.tarjeta-comida {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  background: #fff;
+  border-radius: 16px;
+  padding: 0.9rem 1rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+
+  .avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ffd8a8, var(--color-acento));
+    flex-shrink: 0;
+  }
+
+  .info {
+    flex: 1;
+    min-width: 0;
+
+    h3 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .hora {
+      margin: 0.1rem 0 0.4rem;
+      font-size: 0.75rem;
+      color: #9a9a9a;
+    }
+
+    .macros {
+      display: flex;
+      gap: 0.75rem;
+      font-size: 0.7rem;
+      color: #9a9a9a;
+
+      b {
+        color: #2b2b2b;
+      }
+    }
+  }
+
+  .derecha {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.2rem;
+    flex-shrink: 0;
+
+    .kcal-comida {
+      font-weight: 700;
+    }
+
+    .porcentaje {
+      font-size: 0.7rem;
+      color: var(--color-acento);
+    }
+
+    ion-icon {
+      margin-top: 0.3rem;
+      color: #b0b0b0;
+    }
+  }
+}

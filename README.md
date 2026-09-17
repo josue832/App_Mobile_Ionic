@@ -1,39 +1,42 @@
-# Build Your First Ionic App: Photo Gallery (Ionic Angular and Capacitor)
+# App Móvil - Contador Calórico y Recomendación de Comidas con IA
 
-Get started with Ionic by building a photo gallery app that runs on iOS, Android, and the web - with just one codebase. This is the complete project referenced in the ["Your First App: Angular" guide](https://ionicframework.com/docs/angular/your-first-app). Follow along to create a complete CRUD (create-read-update-delete) experience.
+## Descripción
 
-Powered by [Ionic Angular](https://ionicframework.com/docs/angular/overview) (web app) and [Capacitor](https://capacitor.ionicframework.com) (native app runtime).
+Aplicación móvil desarrollada con **Ionic + Angular** para llevar el control calórico diario y recibir recomendaciones de comidas, apoyándose en IA para facilitar el registro y la sugerencia de alimentos.
 
-## How It Works
+## Objetivo
 
-After the user navigates to Tab 2 (Photos), they can tap/click on the camera button to open up the device's camera. After taking or selecting a photo, it's stored permanently into the device's filesystem. When the user reopens the app at a later time, the photo images are loaded from the filesystem and displayed again in the gallery. The user can tap on a photo to be presented with the option to remove the photo.
+Ayudar al usuario a llevar un seguimiento sencillo de su alimentación diaria (calorías consumidas, macros) y ofrecerle recomendaciones de recetas acordes a sus metas, reduciendo el esfuerzo manual mediante funciones asistidas por IA (como el escaneo de alimentos).
 
-## Feature Overview
-* App framework: [Angular](https://angular.io)
-* UI components: [Ionic Framework](https://ionicframework.com/docs/components)
-  * Camera button: [Floating Action Button (FAB)](https://ionicframework.com/docs/api/fab)
-  * Photo Gallery display: [Grid](https://ionicframework.com/docs/api/grid)
-  * Delete Photo dialog: [Action Sheet](https://ionicframework.com/docs/api/action-sheet) 
-* Native runtime: [Capacitor](https://capacitor.ionicframework.com)
-  * Taking photos: [Camera API](https://capacitor.ionicframework.com/docs/apis/camera)
-  * Writing photo to the filesystem: [Filesystem API](https://capacitor.ionicframework.com/docs/apis/filesystem)
-  * Storing photo gallery metadata: [Preferences API](https://capacitor.ionicframework.com/docs/apis/preferences)
+## Funcionalidades principales
 
-## Project Structure
-* Tab2 (Photos) (`src/app/tab2/`): Photo Gallery UI and basic logic.
-* PhotoService (`src/app/services/photo.service.ts`): Logic encapsulating Capacitor APIs, including Camera, Filesystem, and Preferences.
+- **Login**: autenticación de usuario contra una API propia (PHP + MySQL).
+- **Inicio (Dashboard)**: muestra el progreso calórico del día y las comidas registradas.
+- **Escaneo**: vista para escanear alimentos y obtener su información nutricional (apoyo de IA).
+- **Recetas**: catálogo de recetas recomendadas, filtrables por categoría.
+- **Usuarios (CRUD)**: alta, consulta, edición y eliminación de usuarios — módulo base de cuentas.
 
-## How to Run
+## Tecnologías
 
-> [!TIP]
-> It's highly recommended to follow along with the [tutorial guide](https://ionicframework.com/docs/angular/your-first-app), which goes into more depth, but this is the fastest way to run the app.
+- Ionic + Angular (componentes standalone)
+- Axios para el consumo de la API
+- PHP + PDO (API REST propia)
+- MySQL / MariaDB
 
-> [!IMPORTANT]
-> Requires Node `^22.22.3 || ^24.15.0 || >=26.0.0` (Angular 22).
+## Vistas de la aplicación
 
-1) Install the Ionic CLI (if you haven't already): `npm install -g @ionic/cli`
-2) Clone the repository: `git clone https://github.com/ionic-team/tutorial-photo-gallery-angular`
-3) Navigate to the project directory: `cd tutorial-photo-gallery-angular`
-4) Install the project dependencies: `npm install`
-5) Run the app in your browser: `ionic serve`
-6) Run the app on iOS or Android: Follow the [Capacitor Workflow](https://capacitorjs.com/docs/basics/workflow) guide for instructions on building and running the app on a native platform.
+1. **Login** — autenticación de usuario.
+2. **Inicio** — dashboard con resumen calórico del día.
+3. **Escaneo** — escaneo de alimentos con IA (interfaz).
+4. **Recetas** — listado de recetas recomendadas.
+5. **Usuarios** — CRUD de usuarios.
+
+## Cómo ejecutar el proyecto
+
+```bash
+npm install
+ionic serve
+```
+## Autor
+
+Josue — Ingeniería en Software.
