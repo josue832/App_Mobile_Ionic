@@ -1,0 +1,111 @@
+<ion-content [fullscreen]="true">
+  <div class="pantalla">
+
+    <div class="imagen-encabezado">
+      <!-- Degradado de respaldo si la foto no existe; la <img> se pone encima -->
+      @if (receta) {
+        <img
+          [src]="rutaImagen(receta)"
+          (error)="ocultarImagen($event)"
+          [alt]="receta.nombre"
+          class="foto-receta" />
+      }
+      <button class="boton-regreso" (click)="regresar()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </button>
+    </div>
+
+    @if (cargando) {
+      <p class="mensaje-estado">Cargando receta...</p>
+    }
+
+    @if (!cargando && !receta) {
+      <p class="mensaje-estado">No se encontró la receta.</p>
+    }
+
+    @if (receta) {
+      <div class="contenido">
+        <h1>{{ receta.nombre }}</h1>
+
+        <div class="datos-rapidos">
+          <span class="dato"><ion-icon name="time-outline"></ion-icon> {{ receta.tiempo_min }} min</span>
+          <span class="dato dificultad">{{ receta.dificultad }}</span>
+          <span class="dato kcal"><ion-icon name="flame-outline"></ion-icon> {{ receta.kcal }} kcal</span>
+        </div>
+
+        <div class="seccion">
+          <h2><ion-icon name="list-outline"></ion-icon> Ingredientes</h2>
+          @if (receta.ingredientes.length === 0) {
+            <p class="sin-datos">Esta receta todavía no tiene ingredientes cargados.</p>
+          }
+          <ul class="lista-ingredientes">
+            @for (ing of receta.ingredientes; track ing.id) {
+              <li>
+                <span class="nombre-ingrediente">{{ ing.nombre }}</span>
+                @if (ing.cantidad) {
+                  <span class="cantidad-ingrediente">{{ ing.cantidad }}</span>
+                }
+              </li>
+            }
+          </ul>
+        </div>
+
+        <div class="seccion">
+          <h2>Preparación</h2>
+          @if (receta.pasos.length === 0) {
+            <p class="sin-datos">Esta receta todavía no tiene pasos cargados.</p>
+          }
+          <ol class="lista-pasos">
+            @for (paso of receta.pasos; track paso.id) {
+              <li>
+                <span class="numero-paso">{{ paso.numero_paso }}</span>
+                <p>{{ paso.descripcion }}</p>
+              </li>
+            }
+          </ol>
+        </div>
+
+        <!-- Nota personal: guardada localmente en el dispositivo (Ionic Storage) -->
+        <div class="seccion">
+          <h2><ion-icon name="create-outline"></ion-icon> Mis notas</h2>
+
+          @if (notaGuardada && !editandoNota) {
+            <div class="tarjeta-nota">
+              <p class="texto-nota">{{ notaGuardada.texto }}</p>
+              <p class="fecha-nota">Guardada: {{ notaGuardada.actualizadoEn | date: 'short' }}</p>
+              <div class="acciones-nota">
+                <button class="boton-secundario" (click)="iniciarEdicion()">
+                  <ion-icon name="create-outline"></ion-icon> Editar
+                </button>
+                <button class="boton-secundario peligro" (click)="eliminarNota()">
+                  <ion-icon name="trash-outline"></ion-icon> Eliminar
+                </button>
+              </div>
+            </div>
+          }
+
+          @if (!notaGuardada || editandoNota) {
+            <div class="editor-nota">
+              <textarea
+                [(ngModel)]="notaTexto"
+                name="notaTexto"
+                rows="3"
+                placeholder="Escribe una nota personal sobre esta receta (ej. cambios que le hiciste, qué tal te quedó)..."></textarea>
+              <div class="acciones-nota">
+                <button class="boton-primario" (click)="guardarNota()" [disabled]="!notaTexto.trim()">
+                  Guardar nota
+                </button>
+                @if (editandoNota) {
+                  <button class="boton-secundario" (click)="cancelarEdicion()">
+                    Cancelar
+                  </button>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+  </div>
+</ion-content>

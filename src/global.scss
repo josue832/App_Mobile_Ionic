@@ -34,4 +34,7 @@
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import "@ionic/angular/css/palettes/dark.system.css";
+/* @import "@ionic/angular/css/palettes/dark.system.css"; */
+/* Desactivado a propósito: el diseño de esta app (crema/coral) no tiene
+   versión de modo oscuro, así que forzamos siempre el tema claro sin
+   importar el prefers-color-scheme del sistema/navegador. */

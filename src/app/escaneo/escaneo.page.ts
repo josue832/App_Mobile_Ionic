@@ -18,7 +18,17 @@ export class EscaneoPage {
     { kcal: 90, top: '34%', left: '48%' },
   ];
 
+  // Foto de ejemplo (assets/escaneo/demo-plato.jpg) mostrando qué puede escanear el
+  // usuario. Cuando se conecte la cámara real, esta imagen se reemplaza por la
+  // foto que el usuario tome (esta pantalla es solo la vista de bienvenida/demo).
+  imagenDemo = 'assets/escaneo/demo-plato.jpg';
+
   constructor() {
     addIcons({ cameraOutline });
+  }
+
+  // Si la imagen no existe (404), la ocultamos y queda visible el degradado de respaldo
+  ocultarImagen(evento: Event) {
+    (evento.target as HTMLImageElement).style.display = 'none';
   }
 }

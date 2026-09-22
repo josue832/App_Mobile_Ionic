@@ -31,9 +31,14 @@
 
     <div class="lista-recetas">
       @for (r of recetas; track r.id) {
-        <div class="tarjeta-receta">
+        <div class="tarjeta-receta" (click)="verDetalle(r)">
           <div class="imagen-receta">
-            <!-- Placeholder: aquí irá la foto real de la receta -->
+            <!-- Degradado de respaldo si la foto no existe; la <img> se pone encima -->
+            <img
+              [src]="rutaImagen(r)"
+              (error)="ocultarImagen($event)"
+              [alt]="r.nombre"
+              class="foto-receta" />
             <ion-icon name="starOutline" class="favorito"></ion-icon>
           </div>
           <div class="cuerpo-receta">

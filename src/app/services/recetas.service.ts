@@ -23,6 +23,27 @@ export interface Receta {
   categoria_nombre: string | null;
 }
 
+// Un ingrediente de una receta (tabla `receta_ingredientes`)
+export interface Ingrediente {
+  id: number;
+  nombre: string;
+  cantidad: string | null;
+}
+
+// Un paso de preparación de una receta (tabla `receta_pasos`)
+export interface Paso {
+  id: number;
+  numero_paso: number;
+  descripcion: string;
+}
+
+// Receta completa, tal como la regresa la API cuando se pide por `?id=`:
+// incluye la receta base más sus ingredientes y pasos anidados
+export interface RecetaDetalle extends Receta {
+  ingredientes: Ingrediente[];
+  pasos: Paso[];
+}
+
 export interface ApiResponse<T> {
   success: boolean;
   message: string;
@@ -50,9 +71,10 @@ export class RecetasService {
       .catch((err) => this.manejarError(err, []));
   }
 
-  obtenerReceta(id: number): Promise<ApiResponse<Receta | null>> {
+  // Al pedir una receta por id, la API regresa también sus ingredientes y pasos anidados
+  obtenerReceta(id: number): Promise<ApiResponse<RecetaDetalle | null>> {
     return axios
-      .get<ApiResponse<Receta>>(API_URL_RECETAS, { params: { id } })
+      .get<ApiResponse<RecetaDetalle>>(API_URL_RECETAS, { params: { id } })
       .then((res) => res.data)
       .catch((err) => this.manejarError(err, null));
   }

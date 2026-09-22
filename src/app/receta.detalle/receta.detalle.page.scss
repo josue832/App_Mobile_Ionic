@@ -1,0 +1,235 @@
+:host {
+  --background: #faf5f0;
+}
+
+.pantalla {
+  font-family: 'Roboto', sans-serif;
+  color: #2b2b2b;
+}
+
+.imagen-encabezado {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+  // Degradado de respaldo, visible si la foto real no carga (ver .foto-receta)
+  background: linear-gradient(135deg, #7fae4a, #d9c14f, #c65b3f);
+
+  .foto-receta {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .boton-regreso {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2b2b2b;
+    font-size: 1.1rem;
+    z-index: 1;
+  }
+}
+
+.mensaje-estado {
+  text-align: center;
+  color: #9a9a9a;
+  font-size: 0.9rem;
+  padding: 2rem 1.25rem;
+}
+
+.contenido {
+  padding: 1.25rem 1.25rem 2.5rem;
+
+  h1 {
+    margin: 0 0 0.9rem;
+    font-size: 1.4rem;
+  }
+}
+
+.datos-rapidos {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+
+  .dato {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: #fff;
+    padding: 0.4rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  .dificultad {
+    color: #f4845f;
+    background: #fdece4;
+  }
+}
+
+.seccion {
+  margin-bottom: 1.75rem;
+
+  h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 1.05rem;
+    margin: 0 0 0.9rem;
+  }
+}
+
+.sin-datos {
+  color: #9a9a9a;
+  font-size: 0.85rem;
+}
+
+.lista-ingredientes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    padding: 0.7rem 1rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    font-size: 0.9rem;
+  }
+
+  .nombre-ingrediente {
+    font-weight: 500;
+  }
+
+  .cantidad-ingrediente {
+    color: #9a9a9a;
+    font-size: 0.8rem;
+  }
+}
+
+.lista-pasos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+
+  li {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+
+    .numero-paso {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #f4845f;
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      padding-top: 0.15rem;
+    }
+  }
+}
+
+.tarjeta-nota,
+.editor-nota {
+  background: #fff;
+  border-radius: 14px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.texto-nota {
+  margin: 0 0 0.5rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  white-space: pre-wrap;
+}
+
+.fecha-nota {
+  margin: 0;
+  font-size: 0.75rem;
+  color: #9a9a9a;
+}
+
+.editor-nota textarea {
+  width: 100%;
+  border: 1px solid #ececec;
+  border-radius: 10px;
+  padding: 0.7rem;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.9rem;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.acciones-nota {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 0.85rem;
+}
+
+.boton-primario {
+  border: none;
+  background: #f4845f;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.boton-secundario {
+  border: none;
+  background: #f4f0ec;
+  color: #2b2b2b;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+
+  &.peligro {
+    color: #c65b3f;
+  }
+}

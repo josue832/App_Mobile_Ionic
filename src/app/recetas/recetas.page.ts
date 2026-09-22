@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { IonContent, IonSearchbar, IonIcon } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import {
@@ -29,7 +30,7 @@ export class RecetasPage implements OnInit {
   recetas: Receta[] = [];
   cargando = false;
 
-  constructor(private recetasService: RecetasService) {
+  constructor(private recetasService: RecetasService, private router: Router) {
     addIcons({
       notificationsOutline,
       starOutline,
@@ -68,5 +69,20 @@ export class RecetasPage implements OnInit {
   elegirCategoria(categoria: Categoria) {
     this.categoriaActivaId = categoria.id;
     this.cargarRecetas();
+  }
+
+  // Abre la pantalla de detalle de la receta seleccionada
+  verDetalle(receta: Receta) {
+    this.router.navigate(['/tabs/recetas', receta.id]);
+  }
+
+  // Imagen local en assets/, nombrada por id: assets/recetas/receta-{id}.jpg
+  rutaImagen(receta: Receta): string {
+    return `assets/recetas/receta-${receta.id}.jpg`;
+  }
+
+  // Si la imagen no existe (404), la ocultamos y queda visible el degradado de respaldo
+  ocultarImagen(evento: Event) {
+    (evento.target as HTMLImageElement).style.display = 'none';
   }
 }

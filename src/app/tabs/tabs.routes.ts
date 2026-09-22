@@ -19,6 +19,11 @@ export const routes: Routes = [
         loadComponent: () => import('../recetas/recetas.page').then((m) => m.RecetasPage),
       },
       {
+        path: 'recetas/:id',
+        
+        loadComponent: () => import('../receta.detalle/receta.detalle.page').then((m) => m.RecetaDetallePage),
+      },
+      {
         path: 'tab1',
         loadComponent: () => import('../tab1/tab1.page').then((m) => m.Tab1Page),
       },

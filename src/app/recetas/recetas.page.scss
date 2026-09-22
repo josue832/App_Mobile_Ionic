@@ -106,13 +106,23 @@
   border-radius: 18px;
   overflow: hidden;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
 }
 
 .imagen-receta {
   position: relative;
   height: 160px;
-  // Placeholder de imagen — reemplaza este gradiente con la foto real de la receta
+  overflow: hidden;
+  // Degradado de respaldo, visible si la foto real no carga (ver .foto-receta)
   background: linear-gradient(135deg, #7fae4a, #d9c14f, #c65b3f);
+
+  .foto-receta {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 
   .favorito {
     position: absolute;
@@ -122,6 +132,7 @@
     border-radius: 50%;
     padding: 0.4rem;
     font-size: 1rem;
+    z-index: 1;
   }
 }
 

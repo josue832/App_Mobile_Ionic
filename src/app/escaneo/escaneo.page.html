@@ -2,7 +2,8 @@
   <div class="pantalla">
 
     <div class="foto-zona">
-      <!-- Placeholder: aquí irá la foto real del platillo / cámara -->
+      <!-- Degradado de respaldo si la foto no existe; la <img> se pone encima -->
+      <img [src]="imagenDemo" (error)="ocultarImagen($event)" alt="Ejemplo de platillo a escanear" class="foto-plato" />
       @for (g of globos; track g.kcal) {
         <div class="globo" [style.top]="g.top" [style.left]="g.left">
           {{ g.kcal }} kcal
