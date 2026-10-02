@@ -4,6 +4,10 @@ const config: CapacitorConfig = {
   appName: "Photo Gallery Cap Ng",
   npmClient: "npm",
   webDir: "www",
+  server: {
+    androidScheme: "http",
+    cleartext: true,
+  },
 };
 
 export default config;

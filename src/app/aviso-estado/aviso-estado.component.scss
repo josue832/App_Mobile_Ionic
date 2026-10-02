@@ -1,0 +1,48 @@
+:host {
+  display: block;
+}
+
+.aviso {
+  align-items: center;
+  border-left: 4px solid;
+  border-radius: 10px;
+  display: flex;
+  font-size: 14px;
+  gap: 12px;
+  justify-content: space-between;
+  margin: 12px 0;
+  padding: 10px 14px;
+}
+
+.aviso-cache {
+  background: #fff4e0;
+  border-color: #f5a623;
+  color: #7a5200;
+}
+
+.aviso-error {
+  background: #fdecea;
+  border-color: #e53935;
+  color: #8a1c1c;
+}
+
+.texto {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+small {
+  opacity: 0.85;
+}
+
+button {
+  background: transparent;
+  border: 1px solid currentColor;
+  border-radius: 8px;
+  color: inherit;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-weight: 600;
+  padding: 6px 12px;
+}

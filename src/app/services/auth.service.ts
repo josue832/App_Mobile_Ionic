@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
-
-// Cambia esto por la URL real donde tengas login.php
-// (en el emulador de Android usa http://10.0.2.2/... en vez de localhost)
-const API_URL = 'http://localhost/App_Mobile_Ionic/Login.php';
+import { ApiConfigService } from './api-config.service';
+import { ApiErrorService } from './api-error.service';
+import { CacheService } from './cache.service';
 
 export interface Usuario {
   id: number;
@@ -23,10 +22,22 @@ export interface LoginResponse {
 })
 export class AuthService {
 
+  constructor(
+    private apiConfig: ApiConfigService,
+    private apiError: ApiErrorService,
+    private cache: CacheService
+  ) {}
+
+  // La URL se arma en cada llamada con la IP que se escribió en el login
+  private get API_URL(): string {
+    return this.apiConfig.url('Login.php');
+  }
+
   login(email: string, password: string): Promise<LoginResponse> {
     return axios
-      .post<LoginResponse>(API_URL, { email, password }, {
+      .post<LoginResponse>(this.API_URL, { email, password }, {
         headers: { 'Content-Type': 'application/json' },
+        timeout: this.apiConfig.timeoutMs,
       })
       .then((res) => {
         if (res.data.success && res.data.token && res.data.usuario) {
@@ -36,20 +47,17 @@ export class AuthService {
         return res.data;
       })
       .catch((err) => {
-        // Si el servidor respondió con un error (401, 400, etc.) axios lo trae en err.response
-        if (err.response && err.response.data) {
-          return err.response.data as LoginResponse;
-        }
-        return {
-          success: false,
-          message: 'No se pudo conectar con el servidor',
-        } as LoginResponse;
+        // Mensaje claro según el tipo de fallo (sin red, servidor inalcanzable, 401, 500...)
+        const info = this.apiError.clasificar(err);
+        return { success: false, message: info.mensaje } as LoginResponse;
       });
   }
 
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');
+    // Las copias guardadas para uso sin conexión se borran al cerrar sesión
+    this.cache.limpiar();
   }
 
   isLoggedIn(): boolean {

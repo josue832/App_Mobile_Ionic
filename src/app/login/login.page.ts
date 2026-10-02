@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { IonHeader, IonToolbar, IonTitle, IonContent } from '@ionic/angular';
 import { animate } from 'animejs';
 import { AuthService } from '../services/auth.service';
+import { ApiConfigService } from '../services/api-config.service';
+import { ConexionService } from '../services/conexion.service';
 
 @Component({
   selector: 'app-login',
@@ -16,6 +18,8 @@ export class LoginPage {
 
   @ViewChild('animatedPath') pathRef!: ElementRef<SVGPathElement>;
 
+  // IP del servidor (laptop), precargada con la última que se usó
+  servidor = '';
   email = '';
   password = '';
   errorMessage = '';
@@ -23,7 +27,14 @@ export class LoginPage {
 
   private current: any = null;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private apiConfig: ApiConfigService,
+    private conexion: ConexionService,
+    private router: Router
+  ) {
+    this.servidor = this.apiConfig.getHost();
+  }
 
   private animatePath(strokeDashoffset: number, strokeDasharray: string): void {
     if (this.current) {
@@ -58,10 +69,29 @@ export class LoginPage {
   async onSubmit(): Promise<void> {
     this.errorMessage = '';
 
+    if (!this.servidor.trim()) {
+      this.errorMessage = 'Escribe la IP del servidor (ej. 192.168.0.253)';
+      return;
+    }
+
+    if (!this.apiConfig.esValido(this.servidor)) {
+      this.errorMessage = 'La IP del servidor no es válida';
+      return;
+    }
+
+    if (!this.conexion.online()) {
+      this.errorMessage = 'Sin conexión a internet. Conéctate a la misma red Wi-Fi que tu laptop para iniciar sesión.';
+      return;
+    }
+
     if (!this.email || !this.password) {
       this.errorMessage = 'Email y contraseña son obligatorios';
       return;
     }
+
+    // Se guarda antes de llamar a la API: todos los servicios leen la IP desde aquí
+    this.apiConfig.setHost(this.servidor);
+    this.servidor = this.apiConfig.getHost();
 
     this.loading = true;
     const res = await this.authService.login(this.email, this.password);

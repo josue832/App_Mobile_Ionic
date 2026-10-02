@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, effect, untracked } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
@@ -25,6 +25,8 @@ import {
 } from 'ionicons/icons';
 import { UsuariosService, Usuario } from '../services/usuarios.service';
 import { AuthService } from '../services/auth.service';
+import { ConexionService } from '../services/conexion.service';
+import { AvisoEstadoComponent } from '../aviso-estado/aviso-estado.component';
 
 @Component({
   selector: 'app-tab1',
@@ -43,6 +45,7 @@ import { AuthService } from '../services/auth.service';
     IonItem,
     IonLabel,
     IonIcon,
+    AvisoEstadoComponent,
   ],
 })
 export class Tab1Page implements OnInit {
@@ -50,6 +53,9 @@ export class Tab1Page implements OnInit {
   formulario: FormGroup;
   usuarios: Usuario[] = [];
   enviando = false;
+
+  // Aviso inline cuando no se pudo cargar la lista (vacío = no se muestra)
+  avisoMensaje = '';
 
   // Para el buscador "obtener uno por id"
   idBuscado: number | null = null;
@@ -65,7 +71,8 @@ export class Tab1Page implements OnInit {
     private alertController: AlertController,
     private usuariosService: UsuariosService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private conexion: ConexionService
   ) {
     addIcons({
       locationOutline,
@@ -80,6 +87,14 @@ export class Tab1Page implements OnInit {
       nombre: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: [''],
+    });
+
+    // Si la lista no pudo cargar y regresa la red, se vuelve a pedir sola
+    effect(() => {
+      const online = this.conexion.online();
+      if (online && this.avisoMensaje) {
+        untracked(() => this.cargarUsuarios());
+      }
     });
   }
 
@@ -129,8 +144,10 @@ export class Tab1Page implements OnInit {
     const res = await this.usuariosService.obtenerUsuarios();
     if (res.success) {
       this.usuarios = res.data;
+      this.avisoMensaje = '';
     } else {
-      await this.mostrarError(res.message);
+      // Aviso dentro de la pantalla (con botón Reintentar) en vez de una alerta al abrir la pestaña
+      this.avisoMensaje = res.message;
     }
   }
 
@@ -158,6 +175,12 @@ export class Tab1Page implements OnInit {
     // La contraseña solo es obligatoria al crear; al editar puede dejarse vacía
     if (this.formulario.invalid || (!this.editando && !password)) {
       this.formulario.markAllAsTouched();
+      return;
+    }
+
+    // Guardar requiere servidor: sin conexión se avisa en lugar de intentar y fallar
+    if (!this.conexion.online()) {
+      await this.mostrarError('Sin conexión: no se pueden guardar usuarios hasta que vuelvas a conectarte.');
       return;
     }
 
@@ -194,6 +217,11 @@ export class Tab1Page implements OnInit {
 
   async eliminar(id: number | undefined) {
     if (!id) return;
+
+    if (!this.conexion.online()) {
+      await this.mostrarError('Sin conexión: no se pueden eliminar usuarios hasta que vuelvas a conectarte.');
+      return;
+    }
 
     const confirmado = await this.confirmarEliminacion();
     if (!confirmado) return;

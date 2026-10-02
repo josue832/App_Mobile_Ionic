@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, effect, untracked } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonContent, IonSearchbar, IonIcon } from '@ionic/angular';
 import { addIcons } from 'ionicons';
@@ -12,6 +12,8 @@ import {
   appsOutline,
 } from 'ionicons/icons';
 import { RecetasService, Categoria, Receta } from '../services/recetas.service';
+import { ConexionService } from '../services/conexion.service';
+import { AvisoEstadoComponent } from '../aviso-estado/aviso-estado.component';
 
 // Categoría virtual (no existe en la BD): representa "sin filtro"
 const CATEGORIA_TODAS: Categoria = { id: 0, nombre: 'Todas', icono: 'appsOutline' };
@@ -20,7 +22,7 @@ const CATEGORIA_TODAS: Categoria = { id: 0, nombre: 'Todas', icono: 'appsOutline
   selector: 'app-recetas',
   templateUrl: './recetas.page.html',
   styleUrls: ['./recetas.page.scss'],
-  imports: [IonContent, IonSearchbar, IonIcon],
+  imports: [IonContent, IonSearchbar, IonIcon, AvisoEstadoComponent],
 })
 export class RecetasPage implements OnInit {
 
@@ -30,7 +32,16 @@ export class RecetasPage implements OnInit {
   recetas: Receta[] = [];
   cargando = false;
 
-  constructor(private recetasService: RecetasService, private router: Router) {
+  // Aviso de conexión / error (vacío = no se muestra)
+  avisoTipo: 'cache' | 'error' = 'error';
+  avisoMensaje = '';
+  avisoFecha: string | null = null;
+
+  constructor(
+    private recetasService: RecetasService,
+    private router: Router,
+    private conexion: ConexionService
+  ) {
     addIcons({
       notificationsOutline,
       starOutline,
@@ -40,9 +51,22 @@ export class RecetasPage implements OnInit {
       fastFoodOutline,
       appsOutline,
     });
+
+    // Si había un aviso (error o datos guardados) y regresa la red, se recarga solo
+    effect(() => {
+      const online = this.conexion.online();
+      if (online && this.avisoMensaje) {
+        untracked(() => this.recargar());
+      }
+    });
   }
 
   ngOnInit() {
+    this.cargarCategorias();
+    this.cargarRecetas();
+  }
+
+  recargar() {
     this.cargarCategorias();
     this.cargarRecetas();
   }
@@ -63,6 +87,21 @@ export class RecetasPage implements OnInit {
 
     if (res.success) {
       this.recetas = res.data;
+      if (res.desdeCache) {
+        // Sin conexión: se muestran las recetas guardadas y se explica por qué
+        this.avisoTipo = 'cache';
+        this.avisoMensaje = res.message;
+        this.avisoFecha = res.guardadoEn ?? null;
+      } else {
+        this.avisoMensaje = '';
+        this.avisoFecha = null;
+      }
+    } else {
+      // Falló y no hay copia guardada: no se deja a la vista una lista de otra categoría
+      this.recetas = [];
+      this.avisoTipo = 'error';
+      this.avisoMensaje = res.message;
+      this.avisoFecha = null;
     }
   }
 

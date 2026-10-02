@@ -1,3 +1,5 @@
+@use "sass:color";
+
 $color-texto: #263238;
 $color-texto-suave: #546e7a;
 $color-acento: #37474f;
@@ -114,7 +116,7 @@ $bk1: 700px;
   cursor: pointer;
 
   &:hover {
-    background: darken($color-acento, 10%);
+    background: color.adjust($color-acento, $lightness: -10%);
   }
 }
 
@@ -171,7 +173,7 @@ $bk1: 700px;
 
   &:focus,
   &:hover {
-    background-color: darken($color-acento, 10%);
+    background-color: color.adjust($color-acento, $lightness: -10%);
     outline: 0;
     transition: background-color 0.3s ease-out;
   }

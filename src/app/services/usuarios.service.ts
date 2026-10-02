@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
-
-// Cambia esto por la URL real donde tengas Usuarios.php
-// (en el emulador de Android usa http://10.0.2.2/... en vez de localhost)
-const API_URL = 'http://localhost/App_Mobile_Ionic/Usuarios.php';
+import { ApiConfigService } from './api-config.service';
+import { ApiErrorService, TipoError } from './api-error.service';
 
 export interface Usuario {
   id?: number;
@@ -17,6 +15,7 @@ export interface ApiResponse<T> {
   success: boolean;
   message: string;
   data: T;
+  tipoError?: TipoError;   // qué clase de fallo fue, si success = false
 }
 
 @Injectable({
@@ -24,24 +23,32 @@ export interface ApiResponse<T> {
 })
 export class UsuariosService {
 
+  constructor(private apiConfig: ApiConfigService, private apiError: ApiErrorService) {}
+
+  // La URL se arma en cada llamada con la IP que se escribió en el login
+  private get API_URL(): string {
+    return this.apiConfig.url('Usuarios.php');
+  }
+
   obtenerUsuarios(): Promise<ApiResponse<Usuario[]>> {
     return axios
-      .get<ApiResponse<Usuario[]>>(API_URL)
+      .get<ApiResponse<Usuario[]>>(this.API_URL, { timeout: this.apiConfig.timeoutMs })
       .then((res) => res.data)
       .catch((err) => this.manejarError(err, []));
   }
 
   obtenerUsuario(id: number): Promise<ApiResponse<Usuario | null>> {
     return axios
-      .get<ApiResponse<Usuario>>(API_URL, { params: { id } })
+      .get<ApiResponse<Usuario>>(this.API_URL, { params: { id }, timeout: this.apiConfig.timeoutMs })
       .then((res) => res.data)
       .catch((err) => this.manejarError(err, null));
   }
 
   crearUsuario(usuario: Usuario): Promise<ApiResponse<{ id: number } | null>> {
     return axios
-      .post<ApiResponse<{ id: number }>>(API_URL, usuario, {
+      .post<ApiResponse<{ id: number }>>(this.API_URL, usuario, {
         headers: { 'Content-Type': 'application/json' },
+        timeout: this.apiConfig.timeoutMs,
       })
       .then((res) => res.data)
       .catch((err) => this.manejarError(err, null));
@@ -49,9 +56,10 @@ export class UsuariosService {
 
   actualizarUsuario(id: number, usuario: Usuario): Promise<ApiResponse<null>> {
     return axios
-      .put<ApiResponse<null>>(API_URL, usuario, {
+      .put<ApiResponse<null>>(this.API_URL, usuario, {
         params: { id },
         headers: { 'Content-Type': 'application/json' },
+        timeout: this.apiConfig.timeoutMs,
       })
       .then((res) => res.data)
       .catch((err) => this.manejarError(err, null));
@@ -59,20 +67,20 @@ export class UsuariosService {
 
   eliminarUsuario(id: number): Promise<ApiResponse<null>> {
     return axios
-      .delete<ApiResponse<null>>(API_URL, { params: { id } })
+      .delete<ApiResponse<null>>(this.API_URL, { params: { id }, timeout: this.apiConfig.timeoutMs })
       .then((res) => res.data)
       .catch((err) => this.manejarError(err, null));
   }
 
-  // Si el servidor respondió con un error (400, 404, 409, etc.) axios lo trae en err.response
+  // Clasifica el error (sin red, servidor inalcanzable, timeout, 4xx, 5xx) y devuelve
+  // un mensaje claro. Los usuarios NO se guardan en caché: son datos personales.
   private manejarError<T>(err: any, dataPorDefecto: T): ApiResponse<T> {
-    if (err.response && err.response.data) {
-      return err.response.data as ApiResponse<T>;
-    }
+    const info = this.apiError.clasificar(err);
     return {
       success: false,
-      message: 'No se pudo conectar con el servidor',
+      message: info.mensaje,
       data: dataPorDefecto,
+      tipoError: info.tipo,
     };
   }
 }

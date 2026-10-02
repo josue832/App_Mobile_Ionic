@@ -20,12 +20,18 @@
       }
     </div>
 
+    <app-aviso-estado
+      [tipo]="avisoTipo"
+      [mensaje]="avisoMensaje"
+      [fecha]="avisoFecha"
+      (reintentar)="recargar()"></app-aviso-estado>
+
     <div class="encabezado-seccion">
       <h2>Recetas populares</h2>
       <a>Ver todas</a>
     </div>
 
-    @if (!cargando && recetas.length === 0) {
+    @if (!cargando && recetas.length === 0 && !avisoMensaje) {
       <p class="sin-resultados">No hay recetas en esta categoría todavía.</p>
     }
 

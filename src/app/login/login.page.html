@@ -63,6 +63,22 @@
         </form>
       </div>
     </div>
+
+    <!-- Origen de datos: va fuera del <form> animado para no desalinear el trazo SVG -->
+    <div class="servidor">
+      <label for="servidor">Servidor (IP de la laptop)</label>
+      <input
+        type="text"
+        id="servidor"
+        name="servidor"
+        [(ngModel)]="servidor"
+        placeholder="192.168.0.253"
+        inputmode="decimal"
+        autocomplete="off"
+        autocapitalize="off"
+        spellcheck="false">
+      <small>Puerto 80 fijo · se recuerda para la próxima vez</small>
+    </div>
   </div>
 
 </ion-content>

@@ -15,11 +15,17 @@
       </button>
     </div>
 
+    <app-aviso-estado
+      [tipo]="avisoTipo"
+      [mensaje]="avisoMensaje"
+      [fecha]="avisoFecha"
+      (reintentar)="cargarReceta(recetaIdActual)"></app-aviso-estado>
+
     @if (cargando) {
       <p class="mensaje-estado">Cargando receta...</p>
     }
 
-    @if (!cargando && !receta) {
+    @if (!cargando && !receta && !avisoMensaje) {
       <p class="mensaje-estado">No se encontró la receta.</p>
     }
 

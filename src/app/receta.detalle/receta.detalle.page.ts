@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, effect, untracked } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
@@ -14,17 +14,28 @@ import {
 } from 'ionicons/icons';
 import { RecetasService, RecetaDetalle } from '../services/recetas.service';
 import { NotasService, NotaReceta } from '../services/notas.service';
+import { ConexionService } from '../services/conexion.service';
+import { AvisoEstadoComponent } from '../aviso-estado/aviso-estado.component';
 
 @Component({
   selector: 'app-receta-detalle',
   templateUrl: './receta.detalle.page.html',
   styleUrls: ['./receta.detalle.page.scss'],
-  imports: [IonContent, IonIcon, FormsModule, DatePipe],
+  imports: [IonContent, IonIcon, FormsModule, DatePipe, AvisoEstadoComponent],
 })
 export class RecetaDetallePage implements OnInit {
 
   receta: RecetaDetalle | null = null;
   cargando = false;
+  private recetaId = 0;
+  get recetaIdActual(): number {
+    return this.recetaId;
+  }
+
+  // Aviso de conexión / error (vacío = no se muestra)
+  avisoTipo: 'cache' | 'error' = 'error';
+  avisoMensaje = '';
+  avisoFecha: string | null = null;
 
   // --- Notas personales (persistencia local, CRUD) ---
   notaGuardada: NotaReceta | null = null;
@@ -35,7 +46,8 @@ export class RecetaDetallePage implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private recetasService: RecetasService,
-    private notasService: NotasService
+    private notasService: NotasService,
+    private conexion: ConexionService
   ) {
     addIcons({
       'arrow-back-outline': arrowBackOutline,
@@ -45,11 +57,20 @@ export class RecetaDetallePage implements OnInit {
       'create-outline': createOutline,
       'trash-outline': trashOutline,
     });
+
+    // Si había un aviso y regresa la red, se vuelve a pedir la receta
+    effect(() => {
+      const online = this.conexion.online();
+      if (online && this.avisoMensaje && this.recetaId) {
+        untracked(() => this.cargarReceta(this.recetaId));
+      }
+    });
   }
 
   ngOnInit() {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     if (id) {
+      this.recetaId = id;
       this.cargarReceta(id);
       this.cargarNota(id);
     }
@@ -62,6 +83,19 @@ export class RecetaDetallePage implements OnInit {
 
     if (res.success) {
       this.receta = res.data;
+      if (res.desdeCache) {
+        this.avisoTipo = 'cache';
+        this.avisoMensaje = res.message;
+        this.avisoFecha = res.guardadoEn ?? null;
+      } else {
+        this.avisoMensaje = '';
+        this.avisoFecha = null;
+      }
+    } else {
+      // Sin conexión y sin copia guardada de esta receta
+      this.avisoTipo = 'error';
+      this.avisoMensaje = res.message;
+      this.avisoFecha = null;
     }
   }
 

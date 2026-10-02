@@ -62,6 +62,11 @@
       </div>
     </div>
 
+    <app-aviso-estado
+      tipo="error"
+      [mensaje]="avisoMensaje"
+      (reintentar)="cargarUsuarios()"></app-aviso-estado>
+
     @if (usuarios.length) {
       <div class="lista-usuarios">
         <h3>Usuarios registrados</h3>

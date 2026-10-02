@@ -1,0 +1,13 @@
+@if (mensaje) {
+  <div class="aviso" [class.aviso-cache]="tipo === 'cache'" [class.aviso-error]="tipo === 'error'" role="alert">
+    <div class="texto">
+      <span>{{ mensaje }}</span>
+      @if (tipo === 'cache') {
+        <small>Mostrando datos guardados{{ fecha ? ' el ' + (fecha | date: 'short') : '' }}.</small>
+      }
+    </div>
+    @if (conReintentar) {
+      <button type="button" (click)="reintentar.emit()">Reintentar</button>
+    }
+  </div>
+}
