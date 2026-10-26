@@ -3,12 +3,20 @@
 	"appName": "Photo Gallery Cap Ng",
 	"npmClient": "npm",
 	"webDir": "www",
+	"server": {
+		"androidScheme": "http",
+		"cleartext": true
+	},
 	"packageClassList": [
+		"BluetoothLe",
+		"CapacitorSQLitePlugin",
 		"AppPlugin",
 		"CAPCameraPlugin",
+		"DevicePlugin",
 		"FilesystemPlugin",
 		"HapticsPlugin",
 		"KeyboardPlugin",
+		"CAPNetworkPlugin",
 		"PreferencesPlugin",
 		"SplashScreenPlugin",
 		"StatusBarPlugin"

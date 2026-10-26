@@ -1,0 +1,217 @@
+:host {
+  --background: #faf5f0;
+}
+
+.pantalla {
+  padding: 1.25rem 1.25rem 2rem;
+  font-family: 'Roboto', sans-serif;
+  color: #2b2b2b;
+}
+
+.foto-zona {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5rem;
+
+  .avatar {
+    position: relative;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    background: #fdece6;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .iniciales {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #f4845f;
+    }
+
+    .insignia {
+      position: absolute;
+      right: 2px;
+      bottom: 2px;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #f4845f;
+      color: #fff;
+      border: 3px solid #faf5f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+  }
+
+  .ayuda {
+    margin: 0.75rem 0 0;
+    font-size: 0.85rem;
+    color: #6b6b6b;
+  }
+
+  .meta-boton {
+    margin-top: 0.75rem;
+    padding: 0.5rem 1rem;
+    border: 1.5px solid #f4845f;
+    border-radius: 20px;
+    background: #fff;
+    color: #f4845f;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+
+    ion-icon {
+      vertical-align: middle;
+      font-size: 1.1rem;
+    }
+  }
+
+  .quitar {
+    margin-top: 0.4rem;
+    background: none;
+    border: none;
+    color: #c65b3f;
+    font-size: 0.85rem;
+    cursor: pointer;
+
+    ion-icon {
+      vertical-align: middle;
+    }
+  }
+
+  .nota {
+    margin: 0.4rem 0 0;
+    font-size: 0.72rem;
+    color: #9a9a9a;
+  }
+}
+
+.tarjeta {
+  background: #fff;
+  border-radius: 18px;
+  padding: 1.25rem 1.1rem 1.4rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+
+  h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1.1rem;
+  }
+
+  label {
+    margin-top: 0.9rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #6b6b6b;
+
+    .opcional {
+      font-weight: 400;
+      color: #9a9a9a;
+    }
+  }
+
+  input {
+    margin-top: 0.3rem;
+    padding: 0.75rem 0.9rem;
+    border: 1px solid #e6e0d9;
+    border-radius: 12px;
+    background: #faf5f0;
+    font-size: 1rem;
+    color: #2b2b2b;
+    outline: none;
+
+    &:focus {
+      border-color: #f4845f;
+    }
+  }
+
+  .error {
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
+    color: #c65b3f;
+  }
+
+  .guardar {
+    margin-top: 1.4rem;
+    padding: 0.85rem;
+    border: none;
+    border-radius: 14px;
+    background: #f4845f;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:disabled {
+      opacity: 0.6;
+    }
+  }
+}
+
+// Modal de metadatos
+.meta-contenido {
+  padding: 0.5rem 1.25rem 2rem;
+  font-family: 'Roboto', sans-serif;
+  color: #2b2b2b;
+}
+
+.meta-aviso {
+  background: #fdece6;
+  color: #c65b3f;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  font-size: 0.85rem;
+}
+
+.meta-fila {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid #ece7e1;
+  font-size: 0.9rem;
+
+  .meta-etiqueta {
+    color: #9a9a9a;
+    flex-shrink: 0;
+  }
+
+  .meta-valor {
+    font-weight: 600;
+    text-align: right;
+    word-break: break-word;
+  }
+}
+
+// Barra superior con colores propios para que los botones siempre se vean
+ion-toolbar {
+  --background: #faf5f0;
+  --color: #2b2b2b;
+  --border-color: transparent;
+}
+
+ion-buttons ion-button,
+ion-back-button {
+  --color: #f4845f;
+  --color-activated: #c65b3f;
+}
+
+ion-buttons ion-icon {
+  font-size: 1.5rem;
+}

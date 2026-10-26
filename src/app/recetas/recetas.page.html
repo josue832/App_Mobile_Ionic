@@ -4,7 +4,7 @@
     <div class="fila-busqueda">
       <ion-searchbar placeholder="Buscar" showClearButton="never"></ion-searchbar>
       <button class="boton-campana">
-        <ion-icon name="notificationsOutline"></ion-icon>
+        <ion-icon name="notifications-outline"></ion-icon>
       </button>
     </div>
 
@@ -14,7 +14,7 @@
           class="categoria"
           [class.activa]="categoriaActivaId === c.id"
           (click)="elegirCategoria(c)">
-          <ion-icon [name]="c.icono ?? 'appsOutline'"></ion-icon>
+          <ion-icon [name]="aKebab(c.icono ?? 'appsOutline')"></ion-icon>
           <span>{{ c.nombre }}</span>
         </button>
       }
@@ -45,11 +45,11 @@
               (error)="ocultarImagen($event)"
               [alt]="r.nombre"
               class="foto-receta" />
-            <ion-icon name="starOutline" class="favorito"></ion-icon>
+            <ion-icon name="star-outline" class="favorito"></ion-icon>
           </div>
           <div class="cuerpo-receta">
             <h3>{{ r.nombre }}</h3>
-            <p class="tiempo"><ion-icon name="timeOutline"></ion-icon> {{ r.tiempo_min }} min</p>
+            <p class="tiempo"><ion-icon name="time-outline"></ion-icon> {{ r.tiempo_min }} min</p>
             <div class="pie-receta">
               <span class="dificultad">{{ r.dificultad }}</span>
               <span class="kcal">{{ r.kcal }} kcal</span>

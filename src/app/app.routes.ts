@@ -19,7 +19,15 @@ export const routes: Routes = [
   {
     path: 'receta.detalle',
     loadComponent: () => import('./receta.detalle/receta.detalle.page').then( m => m.RecetaDetallePage)
+  },  {
+    path: 'graficas',
+    loadComponent: () => import('./graficas/graficas.page').then( m => m.GraficasPage)
   },
+  {
+    path: 'perfil',
+    loadComponent: () => import('./perfil/perfil.page').then( m => m.PerfilPage)
+  },
+
 
   
 

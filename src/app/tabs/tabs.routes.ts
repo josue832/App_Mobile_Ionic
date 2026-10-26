@@ -15,6 +15,14 @@ export const routes: Routes = [
         loadComponent: () => import('../escaneo/escaneo.page').then((m) => m.EscaneoPage),
       },
       {
+        path: 'perfil',
+        loadComponent: () => import('../perfil/perfil.page').then((m) => m.PerfilPage),
+      },
+      {
+        path: 'graficas',
+        loadComponent: () => import('../graficas/graficas.page').then((m) => m.GraficasPage),
+      },
+      {
         path: 'recetas',
         loadComponent: () => import('../recetas/recetas.page').then((m) => m.RecetasPage),
       },

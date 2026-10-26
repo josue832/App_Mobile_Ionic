@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { IonHeader, IonToolbar, IonButtons, IonButton, IonTitle, IonContent, IonIcon } from '@ionic/angular';
 import { addIcons } from 'ionicons';
-import { calendarOutline, notificationsOutline, addOutline, createOutline } from 'ionicons/icons';
+import { calendarOutline, notificationsOutline, addOutline, createOutline, barChartOutline, personCircleOutline } from 'ionicons/icons';
 
 interface Comida {
   nombre: string;
@@ -35,7 +36,15 @@ export class InicioPage {
     { nombre: 'Desayuno', hora: '11:30 AM', kcal: 500, porcentajeMeta: 25, proteina: 36, carbohidratos: 57, grasa: 14 },
   ];
 
-  constructor() {
-    addIcons({ calendarOutline, notificationsOutline, addOutline, createOutline });
+  constructor(private router: Router) {
+    addIcons({ calendarOutline, notificationsOutline, addOutline, createOutline, barChartOutline, personCircleOutline });
+  }
+
+  irAPerfil() {
+    this.router.navigate(['/tabs/perfil']);
+  }
+
+  irAGraficas() {
+    this.router.navigate(['/tabs/graficas']);
   }
 }

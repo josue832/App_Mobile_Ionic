@@ -2,13 +2,19 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-button fill="clear">
-        <ion-icon slot="icon-only" name="calendarOutline"></ion-icon>
+        <ion-icon slot="icon-only" name="calendar-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
     <ion-title>Dashboard</ion-title>
     <ion-buttons slot="end">
+      <ion-button fill="clear" aria-label="Mi perfil" (click)="irAPerfil()">
+        <ion-icon slot="icon-only" name="person-circle-outline"></ion-icon>
+      </ion-button>
+      <ion-button fill="clear" aria-label="Ver gráficas" (click)="irAGraficas()">
+        <ion-icon slot="icon-only" name="bar-chart-outline"></ion-icon>
+      </ion-button>
       <ion-button fill="clear">
-        <ion-icon slot="icon-only" name="notificationsOutline"></ion-icon>
+        <ion-icon slot="icon-only" name="notifications-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -28,7 +34,7 @@
     </div>
 
     <button class="boton-agregar">
-      <ion-icon name="addOutline"></ion-icon>
+      <ion-icon name="add-outline"></ion-icon>
     </button>
 
     <div class="lista-comidas">
@@ -47,7 +53,7 @@
           <div class="derecha">
             <span class="kcal-comida">{{ c.kcal }} kcal</span>
             <span class="porcentaje">{{ c.porcentajeMeta }}% de la meta</span>
-            <ion-icon name="createOutline"></ion-icon>
+            <ion-icon name="create-outline"></ion-icon>
           </div>
         </div>
       }

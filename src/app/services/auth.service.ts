@@ -53,6 +53,11 @@ export class AuthService {
       });
   }
 
+  // Actualiza los datos del usuario guardados en la sesión (ej. después de editar el perfil)
+  guardarUsuario(usuario: Usuario): void {
+    localStorage.setItem('usuario', JSON.stringify(usuario));
+  }
+
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('usuario');

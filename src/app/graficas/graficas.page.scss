@@ -1,0 +1,151 @@
+:host {
+  --background: #faf5f0;
+}
+
+.pantalla {
+  padding: 1rem 1.25rem 2rem;
+  font-family: 'Roboto', sans-serif;
+  color: #2b2b2b;
+}
+
+// Selector de gráfica (mismo estilo que las categorías de recetas)
+.tipos {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.25rem;
+
+  .tipo {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    background: #fff;
+    border: none;
+    border-radius: 14px;
+    padding: 0.75rem 1rem;
+    font-size: 0.75rem;
+    color: #9a9a9a;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+
+    ion-icon {
+      font-size: 1.2rem;
+    }
+
+    &.activa {
+      background: #f4845f;
+      color: #fff;
+    }
+  }
+}
+
+.tarjeta-grafica {
+  background: #fff;
+  border-radius: 18px;
+  padding: 1.1rem 1rem 1rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+
+  h2 {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+
+  .subtitulo {
+    margin: 0.2rem 0 0.8rem;
+    font-size: 0.8rem;
+    color: #9a9a9a;
+  }
+}
+
+.zona-grafica {
+  position: relative;
+  min-height: 270px;
+
+  .cargando {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.85);
+    color: #9a9a9a;
+    font-size: 0.9rem;
+  }
+}
+
+.leyenda {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem 1rem;
+  margin-top: 0.75rem;
+
+  .item-leyenda {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    color: #6b6b6b;
+
+    i {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+  }
+}
+
+.resumen {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin-top: 1rem;
+
+  .dato {
+    background: #fff;
+    border-radius: 14px;
+    padding: 0.8rem 0.5rem;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    b {
+      font-size: 0.95rem;
+      color: #f4845f;
+    }
+
+    small {
+      font-size: 0.68rem;
+      color: #9a9a9a;
+    }
+  }
+}
+
+.nota-demo {
+  text-align: center;
+  font-size: 0.72rem;
+  color: #9a9a9a;
+  margin-top: 1.25rem;
+}
+
+// Barra superior con colores propios para que los botones siempre se vean
+ion-toolbar {
+  --background: #faf5f0;
+  --color: #2b2b2b;
+  --border-color: transparent;
+}
+
+ion-buttons ion-button,
+ion-back-button {
+  --color: #f4845f;
+  --color-activated: #c65b3f;
+}
+
+ion-buttons ion-icon {
+  font-size: 1.5rem;
+}

@@ -3,7 +3,7 @@
     <ion-title>Acme Servicios</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="cerrarSesion()">
-        <ion-icon slot="icon-only" name="logOutOutline"></ion-icon>
+        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -17,9 +17,9 @@
       <div class="info-empresa">
         <h3>Acme Servicios</h3>
         <ul class="servicios">
-          <li><ion-icon name="locationOutline"></ion-icon> Calle Cualquiera, 44. 88880. Ciudad (Provincia)</li>
-          <li><ion-icon name="phonePortraitOutline"></ion-icon> 555 555 000</li>
-          <li><ion-icon name="mailOutline"></ion-icon> info@empresa.com</li>
+          <li><ion-icon name="location-outline"></ion-icon> Calle Cualquiera, 44. 88880. Ciudad (Provincia)</li>
+          <li><ion-icon name="phone-portrait-outline"></ion-icon> 555 555 000</li>
+          <li><ion-icon name="mail-outline"></ion-icon> info@empresa.com</li>
         </ul>
 
         <div class="buscar-usuario">
@@ -78,10 +78,10 @@
                 <p>{{ u.email }}</p>
               </ion-label>
               <ion-button slot="end" fill="clear" (click)="editar(u)">
-                <ion-icon name="createOutline"></ion-icon>
+                <ion-icon name="create-outline"></ion-icon>
               </ion-button>
               <ion-button slot="end" color="danger" fill="clear" (click)="eliminar(u.id)">
-                <ion-icon name="trashOutline"></ion-icon>
+                <ion-icon name="trash-outline"></ion-icon>
               </ion-button>
             </ion-item>
           }

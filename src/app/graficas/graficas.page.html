@@ -1,0 +1,68 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/inicio" text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>Gráficas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="pantalla">
+
+    <div class="tipos">
+      @for (o of opciones; track o.tipo) {
+        <button
+          class="tipo"
+          [class.activa]="tipoActivo === o.tipo"
+          (click)="elegirTipo(o.tipo)">
+          <ion-icon [name]="o.icono"></ion-icon>
+          <span>{{ o.nombre }}</span>
+        </button>
+      }
+    </div>
+
+    <app-aviso-estado
+      tipo="error"
+      [mensaje]="avisoMensaje"
+      (reintentar)="cargarDatos()"></app-aviso-estado>
+
+    <div class="tarjeta-grafica">
+      <h2>{{ opcion.titulo }}</h2>
+      <p class="subtitulo">{{ opcion.subtitulo }}</p>
+
+      <div class="zona-grafica">
+        <div #lienzo class="lienzo"></div>
+        @if (cargando) {
+          <div class="cargando">Cargando…</div>
+        }
+      </div>
+
+      @if (leyenda.length) {
+        <div class="leyenda">
+          @for (l of leyenda; track l.nombre) {
+            <span class="item-leyenda">
+              <i [style.background]="l.color"></i>{{ l.nombre }}
+            </span>
+          }
+        </div>
+      }
+    </div>
+
+    @if (resumenDatos.length) {
+      <div class="resumen">
+        @for (r of resumenDatos; track r.etiqueta) {
+          <div class="dato">
+            <b>{{ r.valor }}</b>
+            <small>{{ r.etiqueta }}</small>
+          </div>
+        }
+      </div>
+    }
+
+    @if (esDemo && datos) {
+      <p class="nota-demo">Datos de ejemplo. Se conectarán a la API más adelante.</p>
+    }
+
+  </div>
+</ion-content>

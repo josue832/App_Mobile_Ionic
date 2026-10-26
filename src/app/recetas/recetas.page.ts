@@ -66,6 +66,11 @@ export class RecetasPage implements OnInit {
     this.cargarRecetas();
   }
 
+  // Los íconos de la BD llegan como leafOutline; ion-icon los necesita como leaf-outline
+  aKebab(nombre: string): string {
+    return nombre.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
+  }
+
   recargar() {
     this.cargarCategorias();
     this.cargarRecetas();

@@ -2,12 +2,17 @@
   <div class="pantalla">
 
     <div class="foto-zona">
-      <!-- Degradado de respaldo si la foto no existe; la <img> se pone encima -->
-      <img [src]="imagenDemo" (error)="ocultarImagen($event)" alt="Ejemplo de platillo a escanear" class="foto-plato" />
-      @for (g of globos; track g.kcal) {
-        <div class="globo" [style.top]="g.top" [style.left]="g.left">
-          {{ g.kcal }} kcal
-        </div>
+      @if (fotoActual) {
+        <!-- Foto real tomada por el usuario -->
+        <img [src]="fotoActual" alt="Foto escaneada por ti" class="foto-plato" />
+      } @else {
+        <!-- Degradado de respaldo si la foto no existe; la <img> se pone encima -->
+        <img [src]="imagenDemo" (error)="ocultarImagen($event)" alt="Ejemplo de platillo a escanear" class="foto-plato" />
+        @for (g of globos; track g.kcal) {
+          <div class="globo" [style.top]="g.top" [style.left]="g.left">
+            {{ g.kcal }} kcal
+          </div>
+        }
       }
     </div>
 
@@ -21,10 +26,23 @@
         <span class="punto"></span>
       </div>
 
-      <button class="boton-escanear">
-        <ion-icon name="cameraOutline"></ion-icon>
-        Escanear alimento
+      <button class="boton-escanear" [disabled]="tomandoFoto" (click)="escanear()">
+        <ion-icon name="camera-outline"></ion-icon>
+        {{ tomandoFoto ? 'Abriendo cámara...' : 'Escanear alimento' }}
       </button>
+
+      @if (fotos.length) {
+        <div class="galeria">
+          <p class="galeria-titulo">Tus escaneos</p>
+          <div class="galeria-tira">
+            @for (foto of fotos; track foto.filepath) {
+              <button class="miniatura" (click)="opcionesFoto(foto, $index)">
+                <img [src]="foto.webviewPath" alt="Escaneo guardado" />
+              </button>
+            }
+          </div>
+        </div>
+      }
     </div>
 
   </div>
